@@ -4,16 +4,20 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table(name = "USER")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class User {
-    @Id
     @Column(name = "ID")
+    @Id
     @GeneratedValue
     private Integer id;
 
@@ -37,4 +41,6 @@ public class User {
     @Column(name = "EMAIL", unique = true)
     @Pattern(regexp = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})")
     private String email;
+
+
 }
