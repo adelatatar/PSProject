@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clasa Role reprezinta roulrile pe care le poate avea un user -- student, profesor, admin.
+ * Aceasta este caracterizata de ID (generat automat) si nume(acesta ia una din valorile definite in clasa RoleEnum).
+ * Clasa corespunde tabelei Role din baza de date a aplicatiei.
+ * Adnotarile @Getter si @Setter sunt folosite pentru a avea generate gettere si settere fara a fi scrise explicit.
+ */
 
 @Entity
 @Table(name = "ROLE")
