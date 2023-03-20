@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clasa Question reprezinta Intrebarile ce vor fi in testele de la finalul fiecarui curs.
+ * Aceasta este caracterizata de ID (generat automat), nume, textul intrebarii si raspuns.
+ * Clasa corespunde tabelei Question din baza de date a aplicatiei.
+ * Adnotarile @Getter si @Setter sunt folosite pentru a avea generate gettere si settere fara a fi scrise explicit.
+ */
 
 @Entity
 @Table(name = "QUESTION")

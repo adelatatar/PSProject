@@ -1,5 +1,7 @@
 package com.example.ps_project.services;
 
+import com.example.ps_project.DTOs.UpdateUserDTO;
+import com.example.ps_project.DTOs.UserDTO;
 import com.example.ps_project.entities.User;
 import com.example.ps_project.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -10,62 +12,101 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * In clasa UserService sunt implementate metodele ce se realizeaza pe clasa User.
+ */
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
+    /**
+     * metoda getUser apeleaza metoda findAll() specifica interfetei UserRepository.
+     *
+     * @return lista cu toti useri inregistrati in tabela
+     */
     public List<User> getUsers() {
         List<User> users = userRepository.findAll();
         return users;
     }
 
-    public ResponseEntity<User> registerNewUser(User newUser) {
-        Optional<User> user = userRepository.findByEmail(newUser.getEmail());
-        if(user.isPresent()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(newUser);
+    /**
+     * metoda registerNewUser -- inregistreaza un nou user in tabela corespunzatoare din baza de date
+     *
+     * @param userDTO
+     * @return un mesaj care spune statusul cererii efectuate -- BAD_REQUEST, BAD_GATEWAY, OK.
+     */
+    public ResponseEntity<UserDTO> registerNewUser(UserDTO userDTO) {
+        Optional<User> newUser = userRepository.findByEmail(userDTO.getEmail());
+        if (newUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userDTO);
         }
 
-        userRepository.save(newUser);
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setAge(userDTO.getAge());
 
-        if(userRepository.findById(newUser.getId()).isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(newUser);
+        User savedUser = userRepository.save(user);
+
+        UserDTO savedUserDTO = new UserDTO();
+        savedUserDTO.setId(savedUser.getId());
+        savedUserDTO.setFirstName(savedUser.getFirstName());
+        savedUserDTO.setLastName(savedUser.getLastName());
+        if (userRepository.findById(user.getId()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(savedUserDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(newUser);
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(savedUserDTO);
         }
     }
 
-    public ResponseEntity<User> deleteUser(User userToDelete) {
-        Optional<User> user = userRepository.findByEmail(userToDelete.getEmail());
-        if(user.isPresent()) {
-           userRepository.delete(userToDelete);
+    /**
+     * Metoda deleteUser care sterge un anumit user.
+     *
+     * @param id
+     * @return un mesaj care spune statusul cererii efectuate -- BAD_REQUEST, BAD_GATEWAY, OK.
+     */
+    public ResponseEntity<User> deleteUser(int id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userRepository.deleteById(id);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userToDelete);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user.get());
         }
 
-        if(userRepository.findById(userToDelete.getId()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(userToDelete);
+        if (userRepository.findById(id).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(user.get());
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(userToDelete);
+            return ResponseEntity.status(HttpStatus.OK).body(user.get());
         }
     }
 
-    public ResponseEntity<User> updateUser(String password, User userToUpdate) {
-        Optional<User> user = userRepository.findByEmail(userToUpdate.getEmail());
-        if(user.isPresent()){
-            if(password.length() >= 8) {
-                userToUpdate.setPassword(password);
+    /**
+     * Metoda changePassword modifica parola unui anumit user.
+     *
+     * @param userToUpdate
+     * @return un mesaj care spune statusul cererii efectuate -- BAD_REQUEST, BAD_GATEWAY, OK.
+     */
+    public ResponseEntity<UpdateUserDTO> changePassword(UpdateUserDTO userToUpdate) {
+        Optional<User> user = userRepository.findByEmail(userToUpdate.getUserDTO().getEmail());
+        if (user.isPresent()) {
+            if (userToUpdate.getPassword().length() >= 8) {
+                User userFound = user.get();
+                userFound.setPassword(userToUpdate.getPassword());
+                User savedUser = userRepository.save(userFound);
+
+                if (userToUpdate.getPassword().equals(savedUser.getPassword())) {
+                    return ResponseEntity.status(HttpStatus.OK).body(userToUpdate);
+                } else {
+                    return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(userToUpdate);
+                }
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userToUpdate);
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userToUpdate);
-        }
-
-        if(userToUpdate.getPassword().equals(password)) {
-            return ResponseEntity.status(HttpStatus.OK).body(userToUpdate);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(userToUpdate);
         }
     }
 }

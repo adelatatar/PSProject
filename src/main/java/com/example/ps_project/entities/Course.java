@@ -7,7 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ * Clasa Course reprezinta cursurile care vor fi pe site si pe care studentul le poate parcurge, in functie de interesele lui.
+ * Aceasta are urmatoarele caracteristici: ID(generat automat), name.
+ * Clasa corespunde tabelei Course din baza de date a aplicatiei
+ * Adnotarile @Getter si @Setter sunt folosite pentru a avea generate gettere si settere fara a fi scrise explicit
+ */
 @Entity
 @Table(name = "COURSE")
 @NoArgsConstructor
