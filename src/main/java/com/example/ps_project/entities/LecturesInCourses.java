@@ -19,11 +19,11 @@ public class LecturesInCourses {
     @Column(name="ID")
     private Integer id;
 
-    @NotNull
-    @Column(name="LECTUREID")
-    private Integer lectureID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "lectureID", referencedColumnName = "ID")
+    private Lecture lecture;
 
-    @NotNull
-    @Column(name="COURSEID")
-    private Integer courseID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "courseID", referencedColumnName = "ID")
+    private Course course;
 }

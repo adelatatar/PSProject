@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Clasa Course reprezinta cursurile care vor fi pe site si pe care studentul le poate parcurge, in functie de interesele lui.
  * Aceasta are urmatoarele caracteristici: ID(generat automat), name.
@@ -29,11 +32,6 @@ public class Course {
     @Column(name="NAME")
     private String name;
 
-//    @NotNull
-//    @Column(name="LECTURES")
-//    private List<Lecture> lectures;
-
-//    @NotNull
-//    @Column(name ="PREREQUISITE_COURSES")
-//    private List<Course> prerequisiteCourses;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    private Set<LecturesInCourses> lecturesInCourses = new HashSet<>();
 }

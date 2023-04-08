@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Clasa Lecture reprezinta lectiile care vor fi parcurse in fiecare curs.
  * Are urmatoarele carateristici: ID (generat automat), nume.
@@ -29,4 +32,7 @@ public class Lecture {
     @NotNull
     @Column(name="NAME")
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = CascadeType.ALL)
+    private Set<LecturesInCourses> lecturesInCourses = new HashSet<>();
 }
