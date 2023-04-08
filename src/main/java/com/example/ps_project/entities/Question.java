@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Clasa Question reprezinta Intrebarile ce vor fi in testele de la finalul fiecarui curs.
  * Aceasta este caracterizata de ID (generat automat), nume, textul intrebarii si raspuns.
@@ -37,4 +40,7 @@ public class Question {
     @NotNull
     @Column(name="ANSWER")
     private String answer;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", cascade = CascadeType.ALL)
+    private Set<QuestionsInTests> questionsInTests = new HashSet<>();
 }

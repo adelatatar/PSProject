@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Clasa Test reprezinta Testele ce vor fi la finalul fiecarui curs.
  * Aceasta este caracterizata de ID (generat automat) si nume.
@@ -28,4 +31,7 @@ public class Test {
     @NotNull
     @Column(name = "NAME")
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test", cascade = CascadeType.ALL)
+    private Set<QuestionsInTests> questionsInTests = new HashSet<>();
 }

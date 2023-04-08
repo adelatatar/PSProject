@@ -14,22 +14,23 @@ import java.util.List;
  * In clasa UserController se realizeaza maparea: cerere care vine de pe frontend - metoda implementata in UserService.
  */
 @RestController
+@RequestMapping(path = "/api/user")
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(path = "/user/getAll")
+    @GetMapping(path = "getAll")
     public List<User> getAllUsers(){
         return userService.getUsers();
     }
 
-    @PostMapping(path = "/user/register")
+    @PostMapping(path = "register")
     public ResponseEntity<UserDTO> registerNewUser(@RequestBody UserDTO newUser) { return userService.registerNewUser(newUser);}
 
-    @DeleteMapping(path = "/user/delete")
+    @DeleteMapping(path = "delete")
     public  ResponseEntity<User> deleteUser(@RequestBody int id) { return userService.deleteUser(id);}
 
-    @PutMapping(path = "/user/update")
+    @PutMapping(path = "update")
     public ResponseEntity<UpdateUserDTO> updateUser(@RequestBody UpdateUserDTO userToUpdate) {
         return userService.changePassword(userToUpdate);
     }

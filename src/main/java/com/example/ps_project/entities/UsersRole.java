@@ -19,11 +19,11 @@ public class UsersRole {
     @Column(name="ID")
     private Integer id;
 
-    @NotNull
-    @Column(name="USERID")
-    private Integer userID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "userID", referencedColumnName = "ID")
+    private User user;
 
-    @NotNull
-    @Column(name="ROLEID")
-    private Integer roleID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "roleID", referencedColumnName = "ID")
+    private Role role;
 }

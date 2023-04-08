@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Clasa User resprezinta cele trei tipuri de useri care se pot loga -- student, profesor, admin
  * Acestia sunt caracterizati de un ID (care se genereaza automat), nume, prenume, varsta, parola si email.
@@ -48,5 +51,9 @@ public class User {
     @Pattern(regexp = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})")
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Enrollments> enrollments = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UsersRole> usersRoles = new HashSet<>();
 }

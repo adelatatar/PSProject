@@ -34,4 +34,7 @@ public class Course {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
     private Set<LecturesInCourses> lecturesInCourses = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    private Set<Enrollments> enrollments = new HashSet<>();
 }

@@ -19,11 +19,11 @@ public class QuestionsInTests {
     @Column(name="ID")
     private Integer id;
 
-    @NotNull
-    @Column(name="QUESTIONID")
-    private Integer questionID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "questionID", referencedColumnName = "ID")
+    private Question question;
 
-    @NotNull
-    @Column(name="TESTID")
-    private Integer testID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "testID", referencedColumnName = "ID")
+    private Test test;
 }
