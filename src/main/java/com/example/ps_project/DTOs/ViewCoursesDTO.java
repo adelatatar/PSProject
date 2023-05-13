@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserDTO implements DTO{
-    private String password;
-    private UserDTO userDTO;
+@AllArgsConstructor
+public class ViewCoursesDTO implements DTO{
+    private List<CourseDTO> courses;
 }

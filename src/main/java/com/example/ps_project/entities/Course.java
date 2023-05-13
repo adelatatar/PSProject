@@ -36,5 +36,5 @@ public class Course {
     private Set<LecturesInCourses> lecturesInCourses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
-    private Set<Enrollments> enrollments = new HashSet<>();
+    private Set<Enrolment> enrollments = new HashSet<>();
 }

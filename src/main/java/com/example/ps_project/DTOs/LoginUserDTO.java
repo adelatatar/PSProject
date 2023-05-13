@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserDTO implements DTO{
+public class LoginUserDTO implements DTO{
+    private String email;
     private String password;
-    private UserDTO userDTO;
 }

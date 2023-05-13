@@ -1,5 +1,7 @@
 package com.example.ps_project.controllers;
 
+import com.example.ps_project.DTOs.DTO;
+import com.example.ps_project.DTOs.LoginUserDTO;
 import com.example.ps_project.DTOs.UpdateUserDTO;
 import com.example.ps_project.DTOs.UserDTO;
 import com.example.ps_project.entities.User;
@@ -25,13 +27,18 @@ public class UserController {
     }
 
     @PostMapping(path = "register")
-    public ResponseEntity<UserDTO> registerNewUser(@RequestBody UserDTO newUser) { return userService.registerNewUser(newUser);}
+    public ResponseEntity<DTO> registerNewUser(@RequestBody UserDTO newUser) { return userService.registerNewUser(newUser);}
 
     @DeleteMapping(path = "delete")
     public  ResponseEntity<User> deleteUser(@RequestBody int id) { return userService.deleteUser(id);}
 
     @PutMapping(path = "update")
-    public ResponseEntity<UpdateUserDTO> updateUser(@RequestBody UpdateUserDTO userToUpdate) {
+    public ResponseEntity<DTO> updateUser(@RequestBody UpdateUserDTO userToUpdate) {
         return userService.changePassword(userToUpdate);
+    }
+
+    @PostMapping(path = "login")
+    public ResponseEntity<DTO> loginUser(@RequestBody LoginUserDTO loginUserDTO) {
+        return userService.loginUser(loginUserDTO);
     }
 }

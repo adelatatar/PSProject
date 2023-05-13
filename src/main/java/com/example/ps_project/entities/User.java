@@ -52,7 +52,7 @@ public class User {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Enrollments> enrollments = new HashSet<>();
+    private Set<Enrolment> enrollments = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UsersRole> usersRoles = new HashSet<>();

@@ -33,6 +33,9 @@ public class Lecture {
     @Column(name="NAME")
     private String name;
 
+    @Column(name = "content", columnDefinition = "LONGBLOB")
+    private byte[] content;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lecture", cascade = CascadeType.ALL)
     private Set<LecturesInCourses> lecturesInCourses = new HashSet<>();
 }

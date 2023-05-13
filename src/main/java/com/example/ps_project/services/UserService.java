@@ -1,7 +1,6 @@
 package com.example.ps_project.services;
 
-import com.example.ps_project.DTOs.UpdateUserDTO;
-import com.example.ps_project.DTOs.UserDTO;
+import com.example.ps_project.DTOs.*;
 import com.example.ps_project.entities.User;
 import com.example.ps_project.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -36,7 +35,7 @@ public class UserService {
      * @param userDTO
      * @return un mesaj care spune statusul cererii efectuate -- BAD_REQUEST, BAD_GATEWAY, OK.
      */
-    public ResponseEntity<UserDTO> registerNewUser(UserDTO userDTO) {
+    public ResponseEntity<DTO> registerNewUser(UserDTO userDTO) {
         Optional<User> newUser = userRepository.findByEmail(userDTO.getEmail());
         if (newUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userDTO);
@@ -89,7 +88,7 @@ public class UserService {
      * @param userToUpdate
      * @return un mesaj care spune statusul cererii efectuate -- BAD_REQUEST, BAD_GATEWAY, OK.
      */
-    public ResponseEntity<UpdateUserDTO> changePassword(UpdateUserDTO userToUpdate) {
+    public ResponseEntity<DTO> changePassword(UpdateUserDTO userToUpdate) {
         Optional<User> user = userRepository.findByEmail(userToUpdate.getUserDTO().getEmail());
         if (user.isPresent()) {
             if (userToUpdate.getPassword().length() >= 8) {
@@ -107,6 +106,19 @@ public class UserService {
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userToUpdate);
+        }
+    }
+
+    public ResponseEntity<DTO> loginUser(LoginUserDTO loginUserDTO) {
+        Optional<User> user = userRepository.findByEmail(loginUserDTO.getEmail());
+        if(user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("Email is wrong!"));
+        }
+        User foundUser = user.get();
+        if(foundUser.getPassword().equals(loginUserDTO.getPassword())) {
+            return ResponseEntity.status(HttpStatus.OK).body(loginUserDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("Password is wrong!"));
         }
     }
 }

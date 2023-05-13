@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserDTO implements DTO{
-    private String password;
-    private UserDTO userDTO;
+public class ErrorDTO implements DTO{
+    private String errorMessage;
 }

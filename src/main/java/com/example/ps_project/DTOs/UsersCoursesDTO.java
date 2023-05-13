@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserDTO implements DTO{
-    private String password;
-    private UserDTO userDTO;
+@AllArgsConstructor
+public class UsersCoursesDTO implements DTO{
+    private Integer id;
 }
