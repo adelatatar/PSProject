@@ -1,7 +1,6 @@
 package com.example.ps_project.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class QuestionsInTests {
+public class QuestionsInTest {
     @GeneratedValue
     @Id
     @Column(name="ID")

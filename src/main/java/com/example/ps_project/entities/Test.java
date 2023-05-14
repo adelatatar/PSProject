@@ -33,5 +33,5 @@ public class Test {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "test", cascade = CascadeType.ALL)
-    private Set<QuestionsInTests> questionsInTests = new HashSet<>();
+    private Set<QuestionsInTest> questionsInTests = new HashSet<>();
 }
