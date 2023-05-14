@@ -30,7 +30,7 @@ public class UserController {
     public ResponseEntity<DTO> registerNewUser(@RequestBody UserDTO newUser) { return userService.registerNewUser(newUser);}
 
     @DeleteMapping(path = "delete")
-    public  ResponseEntity<User> deleteUser(@RequestBody int id) { return userService.deleteUser(id);}
+    public  ResponseEntity<DTO> deleteUser(@RequestBody int id) { return userService.deleteUser(id);}
 
     @PutMapping(path = "update")
     public ResponseEntity<DTO> updateUser(@RequestBody UpdateUserDTO userToUpdate) {

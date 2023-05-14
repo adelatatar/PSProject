@@ -67,18 +67,18 @@ public class UserService {
      * @param id
      * @return un mesaj care spune statusul cererii efectuate -- BAD_REQUEST, BAD_GATEWAY, OK.
      */
-    public ResponseEntity<User> deleteUser(int id) {
+    public ResponseEntity<DTO> deleteUser(int id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             userRepository.deleteById(id);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user.get());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("There is no user with this id!"));
         }
 
-        if (userRepository.findById(id).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(user.get());
+        if (userRepository.findByEmail(user.get().getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO("The user wasn't deleted!"));
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(user.get());
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("The user was deleted!"));
         }
     }
 
@@ -97,15 +97,15 @@ public class UserService {
                 User savedUser = userRepository.save(userFound);
 
                 if (userToUpdate.getPassword().equals(savedUser.getPassword())) {
-                    return ResponseEntity.status(HttpStatus.OK).body(userToUpdate);
+                    return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("The password is changed!"));
                 } else {
-                    return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(userToUpdate);
+                    return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorDTO("The password wasn't changed!"));
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userToUpdate);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("The password is too short!"));
             }
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userToUpdate);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("The user doesn't exist!"));
         }
     }
 
@@ -116,7 +116,7 @@ public class UserService {
         }
         User foundUser = user.get();
         if(foundUser.getPassword().equals(loginUserDTO.getPassword())) {
-            return ResponseEntity.status(HttpStatus.OK).body(loginUserDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("Success!"));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("Password is wrong!"));
         }

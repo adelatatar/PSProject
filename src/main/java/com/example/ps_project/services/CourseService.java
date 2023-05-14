@@ -35,11 +35,10 @@ public class CourseService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("The course already exists!"));
         }
         Course course = new Course();
-        //course.setId(courseDTO.getId());
         course.setName(courseDTO.getName());
-        courseRepository.save(course);
+        Course savedCourse = courseRepository.save(course);
 
-        if (courseRepository.findById(course.getId()).isPresent()) {
+        if (courseRepository.existsById(savedCourse.getId())) {
             return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("The course was successfully added!"));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorDTO("The course was not added!"));
@@ -59,7 +58,7 @@ public class CourseService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("The course doesn't exist!"));
         }
 
-        if (courseRepository.findById(id).isPresent()) {
+        if (courseRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO("The course has not been deleted!"));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("The course was deleted!"));
