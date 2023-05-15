@@ -30,6 +30,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Aceasta este clasa care contine testele pentru toate metodele din CourseService
+ */
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class CourseServiceTest {
@@ -47,6 +50,9 @@ public class CourseServiceTest {
 
     private List<Course> courseList;
 
+    /**
+     * Aceasta se executa inaite de toate testele care urmeaza
+     */
     @BeforeEach
     public void setup() {
         courseList = new ArrayList<>();
@@ -55,6 +61,9 @@ public class CourseServiceTest {
         courseList.add(new Course(3, "C Course", null, null));
     }
 
+    /**
+     * Testeaza metoda getCourses din CourseService
+     */
     @Test
     public void getCoursesTest() {
         when(courseRepository.findAll()).thenReturn(courseList);
@@ -64,6 +73,9 @@ public class CourseServiceTest {
         assertEquals(courseList, courses);
     }
 
+    /**
+     * Testeaza metoda addNewCourse din CourseService in cazul in care adaugarea unui nou curs se realizeaza cu Succes
+     */
     @Test
     public void testAddNewCourse_Success() {
         CourseDTO courseDTO = new CourseDTO(56, "English");
@@ -84,6 +96,10 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).save(any(Course.class));
     }
 
+    /**
+     * Testeaza metoda addNewCourse din CourseService in cazul in care Cursul deja exista, asta ducand la un BAD_REQUEST
+     * si un mesaj de eroare.
+     */
     @Test
     public void testAddNewCourse_ExistingCourse() {
         CourseDTO courseDTO = new CourseDTO(56, "English");
@@ -101,6 +117,10 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).findById(courseDTO.getId());
     }
 
+    /**
+     * Testeaza metoda addNewCourse din CourseService in cazul in care adaugarea cursului nu se realizeaza cu succes,
+     * asta ducand la un mesaj de eroare
+     */
     @Test
     public void testAddNewCourse_NotAdded() {
         CourseDTO courseDTO = new CourseDTO(56, "English");
@@ -121,6 +141,9 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).save(any(Course.class));
     }
 
+    /**
+     * Testeaza metoda deleteCourse din CourseService in cazul in care stergerea unui curs se realizeaza cu succes
+     */
     @Test
     public void testDeleteCourse_Success() {
         int courseId = 1;
@@ -147,6 +170,9 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).existsById(courseId);
     }
 
+    /**
+     * Testeaza metoda deleteCourse din CourseService in cazul in care nu exista cursul pe care dorim sa il stergem
+     */
     @Test
     public void testDeleteCourse_NoCourse() {
         int courseId = 1;
@@ -164,6 +190,9 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).findById(courseId);
     }
 
+    /**
+     * Testeaza metoda deleteCourse din CourseService in cazul in care stergerea nu s-a ealizat cu succes
+     */
     @Test
     public void testDeleteCourse_NotDeleted() {
         int courseId = 1;
@@ -190,6 +219,10 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).existsById(courseId);
     }
 
+    /**
+     * Testeaza metoda addNewLecture din CourseService in cazul in care adaugarea unui lectii noi se realizeaza cu succes
+     * @throws IOException
+     */
     @Test
     public void addNewLectureTest_Success() throws IOException {
         LectureDTO lectureDTO = new LectureDTO();
@@ -227,6 +260,10 @@ public class CourseServiceTest {
         assertEquals("Lecture saved!", ((SuccessMessage) response.getBody()).getSuccessMessage());
     }
 
+    /**
+     * Testeaza metoda addNewLecture din CourseService in cazul in care lectia deja exista
+     * @throws IOException
+     */
     @Test
     public void addNewLectureTest_ExistingLecture() throws IOException {
         LectureDTO lectureDTO = new LectureDTO();
@@ -252,6 +289,10 @@ public class CourseServiceTest {
         assertEquals("Lecture already exist!", ((ErrorDTO) response.getBody()).getErrorMessage());
     }
 
+    /**
+     * Testeaza metoda addNewLecture din CourseService in cazul in care cursul nu exista
+     * @throws IOException
+     */
     @Test
     public void addNewLectureTest_ExistingCourse() throws IOException {
         LectureDTO lectureDTO = new LectureDTO();
@@ -283,6 +324,11 @@ public class CourseServiceTest {
         assertEquals("The course doesn't exist!", ((ErrorDTO) response.getBody()).getErrorMessage());
     }
 
+    /**
+     * Testeaza metoda addNewLecture din CourseService in cazul in care adaugarea unui lectii noi NU se
+     * realizeaza cu succes
+     * @throws IOException
+     */
     @Test
     public void addNewLectureTest_LectureNotAdded() throws IOException {
         LectureDTO lectureDTO = new LectureDTO();

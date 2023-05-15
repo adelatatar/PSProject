@@ -6,6 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clasa Enrolments are rolul de a face legatura dintre un user si cursurile la care s-a inrolat
+ * Aceasta are fildurile id, user si course
+ * Adnotarile @Getter si @Setter sunt folosite pentru a avea generate gettere si settere fara a fi scrise explicit
+ */
+
 @Entity
 @Table(name = "Enrollments")
 @NoArgsConstructor

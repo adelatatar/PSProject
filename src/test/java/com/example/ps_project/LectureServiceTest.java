@@ -21,6 +21,10 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Aceasta este clasa care contine testele pentru toate metodele din LectureService
+ */
+
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class LectureServiceTest {
@@ -33,6 +37,9 @@ public class LectureServiceTest {
     @InjectMocks
     private LectureService lectureService;
 
+    /**
+     * Testeaza metoda deleteLecture din LectureService in cazul in care stergerea unei lectii se realizeaza cu succes
+     */
     @Test
     public void deleteLectureTest_Success(){
         int idLecture = 1;
@@ -50,6 +57,9 @@ public class LectureServiceTest {
         verify(lectureRespository, times(1)).existsById(idLecture);
     }
 
+    /**
+     * Testeaza metoda deleteLecture din LectureService in cazul in care stergerea unei lectii NU se realizeaza cu succes
+     */
     @Test
     public void deleteLectureTest_Failed(){
         int idLecture = 1;
@@ -67,6 +77,9 @@ public class LectureServiceTest {
         verify(lectureRespository, times(1)).existsById(idLecture);
     }
 
+    /**
+     * Testeaza metoda deleteLecture din LectureService in cazul in care lectia pe care dorim sa o stergem nu exista
+     */
     @Test
     public void deleteLectureTest_NoLecture(){
         int idLecture = 1;

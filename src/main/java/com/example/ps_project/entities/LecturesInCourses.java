@@ -7,6 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clasa LecturesInCourses are rolul de a face legatura dintre cusuri si lectiile pe care le contine
+ * Aceasta are un id, un course si mai multe lectures.
+ */
+
 @Entity
 @Table(name = "LecturesInCourses")
 @NoArgsConstructor

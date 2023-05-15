@@ -22,6 +22,9 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Aceasta este clasa care contine testele pentru toate metodele din TestService
+ */
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class TestServiceTest {
@@ -37,6 +40,9 @@ public class TestServiceTest {
     @InjectMocks
     private TestService testService;
 
+    /**
+     * Testeaza metoda testCreateNew din TestService in cazul in care crearea unui test se realizeaza cu Succes
+     */
     @Test
     public void testCreateNewTest_Success(){
         TestDTO testDTO = new TestDTO(1, "Test1");
@@ -54,6 +60,9 @@ public class TestServiceTest {
         verify(testRepository, times(1)).findById(testDTO.getId());
     }
 
+    /**
+     * Testeaza metoda testCreateNew din TestService in cazul in care crearea unui test NU se realizeaza cu Succes
+     */
     @Test
     public void testCreateNewTest_Failed(){
         TestDTO testDTO = new TestDTO(1, "Test1");
@@ -71,6 +80,9 @@ public class TestServiceTest {
         verify(testRepository, times(1)).findById(testDTO.getId());
     }
 
+    /**
+     * Testeaza metoda testCreateNew din TestService in cazul in care testul deja exista
+     */
     @Test
     public void testCreateNewTest_AlredyExist(){
         TestDTO testDTO = new TestDTO(1, "Test1");
@@ -86,6 +98,9 @@ public class TestServiceTest {
         verify(testRepository, times(1)).findById(testDTO.getId());
     }
 
+    /**
+     * Testeaza metoda deleteTest din TestService in cazul in care stergerea unui test se realizeaza cu Succes
+     */
     @Test
     public void testDeleteTest_Success(){
         int idTest = 1;
@@ -101,6 +116,9 @@ public class TestServiceTest {
         verify(testRepository, times(1)).findById(idTest);
     }
 
+    /**
+     * Testeaza metoda deleteTest din TestService in cazul in care stergerea unui test NU se realizeaza cu Succes
+     */
     @Test
     public void testDeleteTest_Failed(){
         int idTest = 1;
@@ -116,6 +134,9 @@ public class TestServiceTest {
         verify(testRepository, times(1)).findById(idTest);
     }
 
+    /**
+     * Testeaza metoda deleteTest din TestService in cazul in care testul nu exista
+     */
     @Test
     public void testDeleteTest_NoTest(){
         int idTest = 1;
@@ -130,6 +151,10 @@ public class TestServiceTest {
         verify(testRepository, times(1)).findById(idTest);
     }
 
+    /**
+     * Testeaza metoda addNewQuestion din TestService in cazul in care adaugarea unei intrebari noi
+     * se realizeaza cu Succes
+     */
     @Test
     public void testAddNewQuestion_Success(){
         QuestionDTO questionDTO = new QuestionDTO();
@@ -167,6 +192,10 @@ public class TestServiceTest {
         assertEquals("Question saved!", ((SuccessMessage) response.getBody()).getSuccessMessage());
     }
 
+    /**
+     * Testeaza metoda addNewQuestion din TestService in cazul in care adaugarea unei intrebari noi
+     * NU se realizeaza cu Succes
+     */
     @Test
     public void testAddNewQuestion_Failed(){
         QuestionDTO questionDTO = new QuestionDTO();
@@ -204,6 +233,9 @@ public class TestServiceTest {
         assertEquals("The question has not been added in the test!", ((ErrorDTO) response.getBody()).getErrorMessage());
     }
 
+    /**
+     * Testeaza metoda addNewQuestion din TestService in cazul in care testul nu exista
+     */
     @Test
     public void testAddNewQuestion_NoTest(){
         QuestionDTO questionDTO = new QuestionDTO();
@@ -235,6 +267,9 @@ public class TestServiceTest {
         assertEquals("The test doesn't exist!", ((ErrorDTO) response.getBody()).getErrorMessage());
     }
 
+    /**
+     * Testeaza metoda addNewQuestion din TestService in cazul in care intrebarea exista
+     */
     @Test
     public void testAddNewQuestion_ExistingQuestion(){
         QuestionDTO questionDTO = new QuestionDTO();

@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-
+/**
+ * Aceasta este clasa care contine testele pentru toate metodele din UserService
+ */
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class UserServiceTest {
@@ -32,6 +34,9 @@ public class UserServiceTest {
 
     private List<User> userList;
 
+    /**
+     * Aceasta se executa inaite de toate testele care urmeaza
+     */
     @BeforeEach
     public void setup(){
         userList = new ArrayList<>();
@@ -43,6 +48,9 @@ public class UserServiceTest {
         userList.add(new User(6, "Elena", "Tatar", 6, "elena", "elena@gmail.com", null, null));
     }
 
+    /**
+     * Testeaza metoda getUsers din UserService
+     */
     @Test
     public void getUsersTest() {
         when(userRepository.findAll()).thenReturn(userList);
@@ -52,6 +60,9 @@ public class UserServiceTest {
         assertEquals(userList, allUsers);
     }
 
+    /**
+     * Testeaza metoda registerUser din UserService in cazul in care inregisrarea unui nou user se realizeaza cu Succes
+     */
     @Test
     public void registerUserTest_NewUser(){
         UserDTO userDTO = new UserDTO(78, "Adriana", "Tatar", 43, "adriana", "adriana@yahoo.com");
@@ -75,6 +86,10 @@ public class UserServiceTest {
         assertEquals(user.getLastName(), savedUserDTO.getLastName());
     }
 
+    /**
+     * Testeaza metoda registerUser din UserService in cazul in care inregisrarea unui nou user NU se realizeaza
+     * cu succes deoarece userul exista deja
+     */
     @Test
     public void registerUser_ExistingUser(){
         UserDTO userDTO = new UserDTO(78, "Adriana", "Tatar", 43, "adriana", "adriana@yahoo.com");
@@ -93,6 +108,9 @@ public class UserServiceTest {
         assertEquals(userDTO, response.getBody());
     }
 
+    /**
+     * Testeaza metoda deleteUser din UserService in cazul in care stergerea unui user se realizeaza cu Succes
+     */
     @Test
     public void deleteUserTest_Success(){
         int userId = 78;
@@ -107,6 +125,10 @@ public class UserServiceTest {
         verify(userRepository, times(1)).deleteById(userId);
     }
 
+    /**
+     * Testeaza metoda deleteUser din UserService in cazul in care userul nu exista,
+     * deci stergerea nu se poate realiza
+     */
     @Test
     public void deleteUserTest_NotFound(){
         int userId = 78;
@@ -121,6 +143,9 @@ public class UserServiceTest {
         verify(userRepository, never()).deleteById(userId);
     }
 
+    /**
+     * Testeaza metoda deleteUser din UserService in cazul in care stergerea unui user NU se realizeaza cu Succes
+     */
     @Test
     public void deleteUserTest_NotDeleted(){
         int userId = 78;
@@ -137,6 +162,9 @@ public class UserServiceTest {
         verify(userRepository, times(1)).deleteById(userId);
     }
 
+    /**
+     * Testeaza metoda loginUser din UserService in cazul in care stergerea unui user se realizeaza cu Succes
+     */
     @Test
     public void loginUserTest_Success() {
         LoginUserDTO loginUserDTO = new LoginUserDTO("adela@yahoo.com", "adela");
@@ -152,6 +180,9 @@ public class UserServiceTest {
         assertEquals("Success!", ((SuccessMessage) response.getBody()).getSuccessMessage());
     }
 
+    /**
+     * Testeaza metoda loginUser din UserService in cazul in care email-ul este gresit
+     */
     @Test
     public void loginUserTest_WrongEmail() {
         LoginUserDTO loginUserDTO = new LoginUserDTO("adela@yahoo.com", "adela");
@@ -165,6 +196,9 @@ public class UserServiceTest {
         assertEquals("Email is wrong!", ((ErrorDTO) response.getBody()).getErrorMessage());
     }
 
+    /**
+     * Testeaza metoda loginUser din UserService in cazul in care parola este gresita
+     */
     @Test
     public void loginUserTest_WrongPassword() {
         LoginUserDTO loginUserDTO = new LoginUserDTO("adela@yahoo.com", "adela");
@@ -181,6 +215,9 @@ public class UserServiceTest {
         assertEquals("Password is wrong!", ((ErrorDTO) response.getBody()).getErrorMessage());
     }
 
+    /**
+     * Testeaza metoda changePassword din UserService in cazul in care schimbarea parolei se realizeaza cu Succes
+     */
     @Test
     public void changePasswordTest_Success() {
         UserDTO existingUser = new UserDTO();
@@ -200,6 +237,9 @@ public class UserServiceTest {
         assertEquals("The password is changed!", ((SuccessMessage) response.getBody()).getSuccessMessage());
     }
 
+    /**
+     * Testeaza metoda changePassword din UserService in cazul in care userul nu exista
+     */
     @Test
     public void changePasswordTest_WrongUser() {
         UserDTO existingUser = new UserDTO();
@@ -215,6 +255,9 @@ public class UserServiceTest {
         assertEquals("The user doesn't exist!", ((ErrorDTO) response.getBody()).getErrorMessage());;
     }
 
+    /**
+     * Testeaza metoda changePassword din UserService in cazul in care parola este prea scurta si nu se poate schimba
+     */
     @Test
     public void changePasswordTest_BadPassword() {
         UserDTO existingUser = new UserDTO();

@@ -22,6 +22,9 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Aceasta este clasa care contine testele pentru toate metodele din EnrolmentsService
+ */
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class EnrolmetsServiceTest {
@@ -37,6 +40,10 @@ public class EnrolmetsServiceTest {
     @InjectMocks
     private EnrolmentsService enrolmentsService;
 
+    /**
+     * Testeaza metoda enrolStudentToCourse din EnrolmentsService in cazul in care inrolarea unui user la un curs
+     * se realizeaza cu succes
+     */
     @Test
     public void enrolStudentToCourseTest_Success(){
         EnrolStudentDTO enrolStudentDTO = new EnrolStudentDTO(1, 1);
@@ -52,7 +59,7 @@ public class EnrolmetsServiceTest {
 
         when(userRepository.findById(enrolStudentDTO.getUserID())).thenReturn(Optional.of(user));
         when(courseRepository.findById(enrolStudentDTO.getCourseID())).thenReturn(Optional.of(course));
-        when(enrolmentsRepository.save(enrolment)).thenReturn(enrolment);
+//        when(enrolmentsRepository.save(enrolment)).thenReturn(enrolment);
         when(enrolmentsRepository.findById(enrolment.getId())).thenReturn(Optional.of(enrolment));
 
         ResponseEntity<DTO> response = enrolmentsService.enrolStudentToCourse(enrolStudentDTO);
@@ -64,6 +71,10 @@ public class EnrolmetsServiceTest {
         verify(courseRepository, times(1)).findById(enrolStudentDTO.getCourseID());
     }
 
+    /**
+     * Testeaza metoda enrolStudentToCourse din EnrolmentsService in cazul in care userul nu exista deci inrolarea nu
+     * se poate realiza
+     */
     @Test
     public void enrolStudentToCourseTest_NoUser(){
         EnrolStudentDTO enrolStudentDTO = new EnrolStudentDTO(1, 1);
@@ -82,6 +93,10 @@ public class EnrolmetsServiceTest {
         verify(userRepository, times(1)).findById(enrolStudentDTO.getCourseID());
     }
 
+    /**
+     * Testeaza metoda enrolStudentToCourse din EnrolmentsService in cazul in care cursul nu exista deci inrolarea nu
+     * se poate realiza
+     */
     @Test
     public void enrolStudentToCourseTest_NoCourse(){
         EnrolStudentDTO enrolStudentDTO = new EnrolStudentDTO(1, 1);

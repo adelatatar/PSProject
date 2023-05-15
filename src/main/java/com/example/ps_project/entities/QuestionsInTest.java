@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clasa QuestionsInTest are rolul de a face legatura intre teste si intrebarile care sunt la fiecare test
+ * Aceasta contine un id, un test si o intrebare
+ */
+
 @Entity
 @Table(name = "QuestionsInTests")
 @NoArgsConstructor
