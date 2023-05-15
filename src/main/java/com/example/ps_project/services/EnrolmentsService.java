@@ -61,8 +61,8 @@ public class EnrolmentsService {
                 Enrolment enrolment = new Enrolment();
                 enrolment.setCourse(course);
                 enrolment.setUser(userToEnrol);
-                Enrolment enrolmentSaved = enrolmentsRepository.save(enrolment);
-                if(enrolmentsRepository.findById(enrolmentSaved.getId()).isPresent()) {
+                enrolmentsRepository.save(enrolment);
+                if(enrolmentsRepository.findById(enrolment.getId()).isPresent()) {
                     return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("You have successfully enrolled!"));
                 }
             } else {

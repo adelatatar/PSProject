@@ -216,9 +216,9 @@ public class CourseServiceTest {
         byte[] mockFileContent = "Sample file content".getBytes();
         when(mockFile.getBytes()).thenReturn(mockFileContent);
         when(lectureRespository.findById(lectureDTO.getId())).thenReturn(Optional.empty());
-        when(lectureRespository.save(lecture)).thenReturn(lecture);
+        //when(lectureRespository.save(lecture)).thenReturn(lecture);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
-        when(lecturesInCoursesRepository.save(lecturesInCourses)).thenReturn(lecturesInCourses);
+        //when(lecturesInCoursesRepository.save(lecturesInCourses)).thenReturn(lecturesInCourses);
         when(lecturesInCoursesRepository.findById(lecturesInCourses.getId())).thenReturn(Optional.of(lecturesInCourses));
 
         ResponseEntity<DTO> response = courseService.addNewLecture(lectureDTO, courseId);
@@ -243,7 +243,7 @@ public class CourseServiceTest {
         lecture.setContent(null);
 
         byte[] mockFileContent = "Sample file content".getBytes();
-        when(mockFile.getBytes()).thenReturn(mockFileContent);
+        //when(mockFile.getBytes()).thenReturn(mockFileContent);
         when(lectureRespository.findById(lectureDTO.getId())).thenReturn(Optional.of(lecture));
 
         ResponseEntity<DTO> response = courseService.addNewLecture(lectureDTO, courseId);
@@ -274,7 +274,7 @@ public class CourseServiceTest {
         byte[] mockFileContent = "Sample file content".getBytes();
         when(mockFile.getBytes()).thenReturn(mockFileContent);
         when(lectureRespository.findById(lectureDTO.getId())).thenReturn(Optional.empty());
-        when(lectureRespository.save(lecture)).thenReturn(lecture);
+        //when(lectureRespository.save(lecture)).thenReturn(lecture);
         when(courseRepository.findById(courseId)).thenReturn(Optional.empty());
 
         ResponseEntity<DTO> response = courseService.addNewLecture(lectureDTO, courseId);
@@ -309,9 +309,9 @@ public class CourseServiceTest {
         byte[] mockFileContent = "Sample file content".getBytes();
         when(mockFile.getBytes()).thenReturn(mockFileContent);
         when(lectureRespository.findById(lectureDTO.getId())).thenReturn(Optional.empty());
-        when(lectureRespository.save(lecture)).thenReturn(lecture);
+        //when(lectureRespository.save(lecture)).thenReturn(lecture);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
-        when(lecturesInCoursesRepository.save(lecturesInCourses)).thenReturn(lecturesInCourses);
+        //when(lecturesInCoursesRepository.save(lecturesInCourses)).thenReturn(lecturesInCourses);
         when(lecturesInCoursesRepository.findById(lecturesInCourses.getId())).thenReturn(Optional.empty());
 
         ResponseEntity<DTO> response = courseService.addNewLecture(lectureDTO, courseId);

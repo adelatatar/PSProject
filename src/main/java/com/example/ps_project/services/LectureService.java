@@ -35,7 +35,7 @@ public class LectureService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("The lecture doesn't exist!"));
         }
 
-        if (lectureRespository.findById(idLecture).isPresent()) {
+        if (lectureRespository.existsById(idLecture)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO("The lecture has not been deleted!"));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("The lecture was deleted!"));

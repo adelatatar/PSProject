@@ -31,7 +31,7 @@ public class TestService {
         newTest.setName(testDTO.getName());
         testRepository.save(newTest);
 
-        if(testRepository.findById(newTest.getId()).isPresent()){
+        if(testRepository.existsById(newTest.getId())){
             return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("Test saved!"));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorDTO("The test has not been saved!"));
@@ -46,7 +46,7 @@ public class TestService {
             testRepository.deleteById(idTest);
         }
 
-        if(testRepository.findById(idTest).isPresent()) {
+        if(testRepository.existsById(idTest)) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorDTO("The test has not been deleted!"));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(new SuccessMessage("The test was deleted!"));
@@ -67,11 +67,6 @@ public class TestService {
 
         Question savedQuestion = questionRespository.save(question);
         Optional<Test> foundTest = testRepository.findById(idTest);
-
-        if(questionRespository.findById(savedQuestion.getId()).isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorDTO("The question has not been saved!"));
-        }
-
         if(foundTest.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("The test doesn't exist!"));
         }
