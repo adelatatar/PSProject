@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *Clasa EnrolmentsService contine toate metodele/endpoint-urile necesare pentru functionalitatile dorite in aplicatia la care lucrez
+ */
 @Service
 @AllArgsConstructor
 public class EnrolmentsService {
@@ -23,6 +26,12 @@ public class EnrolmentsService {
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
 
+    /**
+     * Se returneaza o lista cu toate cursurile unui anumit utilizator, daca utilizatorul exista (se cauta dupa id),
+     * in caz contrar se returneaza un mesaj de eroare.
+     * @param usersCoursesDTO
+     * @return
+     */
     public ResponseEntity<DTO> getCoursesByUser(UsersCoursesDTO usersCoursesDTO){
         Optional<User> user = userRepository.findById(usersCoursesDTO.getId());
         if(user.isEmpty()) {
@@ -43,6 +52,12 @@ public class EnrolmentsService {
         return ResponseEntity.status(HttpStatus.OK).body(viewCoursesDTO);
     }
 
+    /**
+     * Se realizeaza inrolarea unui urilizator la un anumit curs. Se cauta atat cursul cat si utilizatorul, in cazul
+     * in care nu sunt gasiti se afiseaza un mesaj de eraoare, altfel se realizeaza irolarea acestuia la cursul dorit.
+     * @param enrolStudentDTO
+     * @return
+     */
     public ResponseEntity<DTO> enrolStudentToCourse(EnrolStudentDTO enrolStudentDTO) {
         Optional<User> foundUser = userRepository.findById(enrolStudentDTO.getUserID());
         if (foundUser.isPresent()) {

@@ -15,12 +15,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Clasa LectureService contine toate metodele/endpoint-urile necesare pentru functionalitatile dorite in aplicatia la care lucrez
+ */
 @Service
 @AllArgsConstructor
 public class LectureService {
     private final LectureRespository lectureRespository;
     private final LecturesInCoursesRepository lecturesInCoursesRepository;
 
+    /**
+     * Se realizeaza stergerea unei anumite lectii in functie de id-ul acesteia. Prima data se cauta lectia,
+     * daca nu se gaseste se returneaza un mesaj de eroare, iar in cazul in care se gaseste se sterge atat din tabela
+     * Lecture, cat si toate aparitiile din tabela LectureInCourses.
+     * @param idLecture
+     * @return
+     */
     public ResponseEntity<DTO> deleteLecture(Integer idLecture) {
         Optional<Lecture> lecture = lectureRespository.findById(idLecture);
         if (lecture.isPresent()) {

@@ -109,6 +109,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Metoda loginUser realizeaza autentificarea utilizatorului pe site, daca datele introduse sunt corecte.
+     * @param loginUserDTO
+     * @return
+     */
     public ResponseEntity<DTO> loginUser(LoginUserDTO loginUserDTO) {
         Optional<User> user = userRepository.findByEmail(loginUserDTO.getEmail());
         if(user.isEmpty()) {

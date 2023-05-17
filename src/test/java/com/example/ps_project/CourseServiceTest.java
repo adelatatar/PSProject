@@ -294,7 +294,7 @@ public class CourseServiceTest {
      * @throws IOException
      */
     @Test
-    public void addNewLectureTest_ExistingCourse() throws IOException {
+    public void addNewLectureTest_NoCourse() throws IOException {
         LectureDTO lectureDTO = new LectureDTO();
         lectureDTO.setName("Lecture1");
         lectureDTO.setId(1);

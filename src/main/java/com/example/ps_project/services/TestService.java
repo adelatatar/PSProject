@@ -8,13 +8,15 @@ import com.example.ps_project.repositories.QuestionRespository;
 import com.example.ps_project.repositories.QuestionsInTestsRepository;
 import com.example.ps_project.repositories.TestRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.rest.webmvc.ServerHttpRequestMethodArgumentResolver;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Clasa TestService contine toate metodele/endpoint-urile necesare pentru functionalitatile dorite in aplicatia la care lucrez
+ */
 @Service
 @AllArgsConstructor
 public class TestService {
@@ -22,6 +24,12 @@ public class TestService {
     private final QuestionsInTestsRepository questionsInTestsRepository;
     private final QuestionRespository questionRespository;
 
+    /**
+     * Se realizeaza adaugarea unui nou test in baza de date. Daca testul nu este gasit (se cauta dupa id),
+     * acesta se adauga cu succes, altfel se returneaza un mesaj de eroare.
+     * @param testDTO
+     * @return
+     */
     public ResponseEntity<DTO> createNewTest(TestDTO testDTO) {
         Optional<Test> foundTest = testRepository.findById(testDTO.getId());
         if(foundTest.isPresent()){
@@ -38,6 +46,12 @@ public class TestService {
         }
     }
 
+    /**
+     * Stergerea unui test dupa id. Se cauta testul dupa id, daca este gasit acesta va fi sters si se
+     * afiseaza un mesaj de succes, in caz contrar, se afiseaza un mesaj de eroare.
+     * @param idTest
+     * @return
+     */
     public ResponseEntity<DTO> deleteTest(Integer idTest) {
         Optional<Test> foundTest = testRepository.findById(idTest);
         if(foundTest.isEmpty()) {
@@ -53,6 +67,15 @@ public class TestService {
         }
     }
 
+    /**
+     * Se verifica daca intrebarea exista, in caz afirmativ se returneaza un mesaj de eroare, iar in caz negativ se continua
+     * procesul cu cautarea testului dupa idCourse. In cazul in care testul nu exista vom primi un mesaj de eroare,
+     * altfel se adauga intrebarea atat in tabela Question cat si in tabela intermediara QuestionsInCourses
+     * si se va primi un mesaj de succes.
+     * @param questionDTO
+     * @param idTest
+     * @return
+     */
     public ResponseEntity<DTO> addNewQuestion(QuestionDTO questionDTO, Integer idTest) {
         Optional<Question> foundQuestion = questionRespository.findById(questionDTO.getId());
 
