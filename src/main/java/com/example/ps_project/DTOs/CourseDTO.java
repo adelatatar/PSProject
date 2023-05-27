@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class CourseDTO implements DTO{
     private Integer id;
     private String name;
+    private String category;
+    private Integer price;
+    private String description;
 }

@@ -10,12 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -50,7 +48,7 @@ public class TestServiceTest {
         test.setName(testDTO.getName());
 
         when(testRepository.findById(testDTO.getId())).thenReturn(Optional.empty());
-        when(testRepository.save(test)).thenReturn(test);
+//        when(testRepository.save(test)).thenReturn(test);
         when(testRepository.existsById(test.getId())).thenReturn(true);
 
         ResponseEntity<DTO> response = testService.createNewTest(testDTO);
@@ -70,7 +68,7 @@ public class TestServiceTest {
         test.setName(testDTO.getName());
 
         when(testRepository.findById(testDTO.getId())).thenReturn(Optional.empty());
-        when(testRepository.save(test)).thenReturn(test);
+//        when(testRepository.save(test)).thenReturn(test);
         when(testRepository.existsById(test.getId())).thenReturn(false);
 
         ResponseEntity<DTO> response = testService.createNewTest(testDTO);
@@ -180,11 +178,11 @@ public class TestServiceTest {
         questionsInTest.setQuestion(question);
 
         when(questionRespository.findById(questionDTO.getId())).thenReturn(Optional.empty());
-        when(questionRespository.save(question)).thenReturn(question);
-        when(questionRespository.existsById(questionRespository.save(question).getId())).thenReturn(false);
+//        when(questionRespository.save(question)).thenReturn(question);
+//        when(questionRespository.existsById(questionRespository.save(question).getId())).thenReturn(false);
         when((testRepository.findById(testId))).thenReturn(Optional.of(test));
         when(questionsInTestsRepository.findById(questionsInTest.getId())).thenReturn(Optional.of(questionsInTest));
-        when(questionsInTestsRepository.save(questionsInTest)).thenReturn(questionsInTest);
+//        when(questionsInTestsRepository.save(questionsInTest)).thenReturn(questionsInTest);
 
         ResponseEntity<DTO> response = testService.addNewQuestion(questionDTO, testId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -221,11 +219,11 @@ public class TestServiceTest {
         questionsInTest.setQuestion(question);
 
         when(questionRespository.findById(questionDTO.getId())).thenReturn(Optional.empty());
-        when(questionRespository.save(question)).thenReturn(question);
-        when(questionRespository.existsById(questionRespository.save(question).getId())).thenReturn(false);
+//        when(questionRespository.save(question)).thenReturn(question);
+//        when(questionRespository.existsById(questionRespository.save(question).getId())).thenReturn(false);
         when((testRepository.findById(testId))).thenReturn(Optional.of(test));
         when(questionsInTestsRepository.findById(questionsInTest.getId())).thenReturn(Optional.empty());
-        when(questionsInTestsRepository.save(questionsInTest)).thenReturn(questionsInTest);
+//        when(questionsInTestsRepository.save(questionsInTest)).thenReturn(questionsInTest);
 
         ResponseEntity<DTO> response = testService.addNewQuestion(questionDTO, testId);
         assertEquals(HttpStatus.BAD_GATEWAY, response.getStatusCode());
@@ -257,8 +255,8 @@ public class TestServiceTest {
         test.setName("Test1");
 
         when(questionRespository.findById(questionDTO.getId())).thenReturn(Optional.empty());
-        when(questionRespository.save(question)).thenReturn(question);
-        when(questionRespository.existsById(questionRespository.save(question).getId())).thenReturn(false);
+//        when(questionRespository.save(question)).thenReturn(question);
+//        when(questionRespository.existsById(questionRespository.save(question).getId())).thenReturn(false);
         when((testRepository.findById(testId))).thenReturn(Optional.empty());
 
         ResponseEntity<DTO> response = testService.addNewQuestion(questionDTO, testId);

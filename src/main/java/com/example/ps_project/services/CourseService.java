@@ -36,6 +36,16 @@ public class CourseService {
     }
 
     /**
+     * Returneaza o lista de cursuri care fac parte dintr-o anumita categorie.
+     * @param category
+     * @return
+     */
+    public List<Course> getAllCoursesByCategory(String category) {
+        List<Course> courses = courseRepository.findByCategory(category);
+        return courses;
+    }
+
+    /**
      * Se realizeaza adaugarea unui nou curs in baza de date. Daca cursul nu este gasit (se cauta dupa id),
      * acesta se adauga cu succes, altfel se returneaza un mesaj de eroare.
      * @param courseDTO
@@ -48,6 +58,9 @@ public class CourseService {
         }
         Course course = new Course();
         course.setName(courseDTO.getName());
+        course.setCategory(courseDTO.getCategory());
+        course.setPrice(courseDTO.getPrice());
+        course.setDescription(courseDTO.getDescription());
         Course savedCourse = courseRepository.save(course);
 
         if (courseRepository.existsById(savedCourse.getId())) {

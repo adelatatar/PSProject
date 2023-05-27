@@ -56,9 +56,9 @@ public class CourseServiceTest {
     @BeforeEach
     public void setup() {
         courseList = new ArrayList<>();
-        courseList.add(new Course(1, "Java Course", null, null));
-        courseList.add(new Course(2, "Phython Course", null, null));
-        courseList.add(new Course(3, "C Course", null, null));
+        courseList.add(new Course(1, "Java Course", "DEVELOPMENT", 70, null,  null, null));
+        courseList.add(new Course(2, "Phython Course", "DEVELOPMENT", 80, null, null, null));
+        courseList.add(new Course(3, "C Course", "IT&SOFTWARE", 75, null, null, null));
     }
 
     /**
@@ -78,7 +78,7 @@ public class CourseServiceTest {
      */
     @Test
     public void testAddNewCourse_Success() {
-        CourseDTO courseDTO = new CourseDTO(56, "English");
+        CourseDTO courseDTO = new CourseDTO(56, "English", "PERSONAL DEVELOPMENT", 50, null);
 
         Course course = new Course();
         course.setName(courseDTO.getName());
@@ -102,7 +102,7 @@ public class CourseServiceTest {
      */
     @Test
     public void testAddNewCourse_ExistingCourse() {
-        CourseDTO courseDTO = new CourseDTO(56, "English");
+        CourseDTO courseDTO = new CourseDTO(56, "English", "PERSONAL DEVELOPMENT", 50, null);
 
         Course course = new Course();
         course.setName(courseDTO.getName());
@@ -123,7 +123,7 @@ public class CourseServiceTest {
      */
     @Test
     public void testAddNewCourse_NotAdded() {
-        CourseDTO courseDTO = new CourseDTO(56, "English");
+        CourseDTO courseDTO = new CourseDTO(56, "English", "PERSONAL DEVELOPMENT", 50, null);
 
         Course course = new Course();
         course.setName(courseDTO.getName());

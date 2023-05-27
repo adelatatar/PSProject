@@ -32,6 +32,18 @@ public class Course {
     @Column(name="NAME")
     private String name;
 
+    @NotNull
+    @Column(name ="CATEGORY")
+    private String category;
+
+    @NotNull
+    @Column(name = "PRICE")
+    private Integer price;
+
+    @NotNull
+    @Column(name = "Description")
+    private String description;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
     private Set<LecturesInCourses> lecturesInCourses = new HashSet<>();
 
