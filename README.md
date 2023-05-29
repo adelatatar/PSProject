@@ -65,7 +65,7 @@
 > * public ResponseEntity<DTO> deleteTest(Integer idTest): Stergerea unui test dupa id. Se cauta testul dupa id, daca este gasit acesta va fi sters si se afiseaza un mesaj de succes, in caz contrar, se afiseaza un mesaj de eroare.
 > * public ResponseEntity<DTO> addNewQuestion(QuestionDTO questionDTO, Integer idTest): Se verifica daca intrebarea exista, in caz afirmativ se returneaza un mesaj de eroare, iar in caz negativ se continua procesul cu cautarea testului dupa idCourse. In cazul in care testul nu exista vom primi un mesaj de eroare, altfel se adauga intrebarea atat in tabela Question cat si in tabela intermediara QuestionsInCourses si se va primi un mesaj de succes.
 
-# **Teste - JavaDoc**
+# **Teste**
 > UserServiceTest: Teste pentru toate metodele (pentru fiecare caz posibil) din UserService
 > * public void getUsersTest() : Testeaza metoda getUsers din UserService.
 > * public void registerUserTest_NewUser() : Testeaza metoda registerUser din UserService in cazul in care inregisrarea unui nou user se realizeaza cu succes.
@@ -115,7 +115,15 @@
 > * public void testAddNewQuestion_NoTest(): Testeaza metoda addNewQuestion din TestService in cazul in care testul nu exista.
 > * public void testAddNewQuestion_ExistingQuestion(): Testeaza metoda addNewQuestion din TestService in cazul in care intrebarea exista.
 
-
+# **FrontEnd Proiect**
+> * Am folosit react, iar codul l-am scris in Visual Studio Code.
+  
+# **Cum se utilizeaza aplicatia?**
+> * Utilizatorul de poate inreistra pe site/ loga sau deloga.
+> * Dupa ce s-a logat utilizatorul poate sa isi vada contul in pagina de profil de unde poate sa isi si schimbe parola daca doreste asta.
+> * Cursurile sunt grupate pe categorii, iar categoria poate fi selectata chiar de pe pagina principala. 
+> * Fiecare curs are optiunea de detalii si de inrolare. 
+> * La fiecare curs sunt prezente detaliile despre el si testul de la cursul respectiv.
 
 
 
